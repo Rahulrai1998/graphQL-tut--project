@@ -1,0 +1,18 @@
+
+-----------------------------
+query QueryUsers{
+  users{
+    id
+    firstname
+    lastname
+    email
+  
+  }
+
+  ---------------------------
+  query QueryQuotes{
+    quotes{
+    name
+    by
+  }
+}
