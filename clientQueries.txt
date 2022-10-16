@@ -17,6 +17,16 @@ query QueryUsers{
   }
 }
 
+----------------------------------
+
+query getQueryById($user_id:ID!){
+  quote(by:$user_id){
+    name
+    by
+    
+  }
+}
+
 ------------------------------------
 
 query getUserById{
@@ -26,4 +36,18 @@ query getUserById{
     lastname
     email
   }
+}
+
+
+------------------------------------------
+USING QUERY VARIABLES
+
+query getUserById($user_id:ID!){
+  user(id:$user_id)
+  {
+    firstname
+    lastname
+    email
+    
+	}
 }
