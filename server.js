@@ -4,7 +4,9 @@ import {quotes,users} from './fakedb.js'
 const typeDefs = gql`
   type Query {
     users:[User]
+    user(id:ID!):User
     quotes:[Quote]
+    quote(by:ID!):[Quote]
   }
 
   type User{
@@ -17,7 +19,7 @@ const typeDefs = gql`
   }
 
   type Quote{
-    name:String
+    name:String  
     by:ID
   }
 `;
@@ -27,7 +29,9 @@ const resolvers = {
     users: () => {
       return users;
     },
-    quotes:()=> quotes
+    user: (_,args)=>users.find(user=>user.id==args.id),
+    quotes:()=> quotes,
+    quote:(_,{by})=>quotes.filter(q=>q.by == by)
   },  
 
   User:{

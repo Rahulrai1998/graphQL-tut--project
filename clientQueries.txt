@@ -16,3 +16,14 @@ query QueryUsers{
     by
   }
 }
+
+------------------------------------
+
+query getUserById{
+  user(id:"23131"){
+    id
+    firstname
+    lastname
+    email
+  }
+}
