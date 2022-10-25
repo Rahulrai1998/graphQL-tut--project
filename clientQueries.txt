@@ -51,3 +51,71 @@ query getUserById($user_id:ID!){
     
 	}
 }
+
+
+----------------------------------------------------------------------------------------------------
+
+MUTATION
+
+mutation addNewUser($firstname:String! , $lastname:String! , $email:String! , $password :String!){
+  signupNewUser(firstname:$firstname , lastname:$lastname , email:$email , password:$password)
+  {
+    id
+    firstname
+    lastname
+    email
+    password
+  }
+}
+
+
+//PASSING INPUT TYPE ARGUMENT
+mutation addUser($v:mutationArgs!)
+{
+  signupNewUser(data:$v)
+  {
+    firstname
+    lastname
+    email
+    password
+  }
+}
+output:
+{
+  "data": {
+    "signupNewUser": {
+      "id": "ac0fcd5e47",
+      "firstname": "gopal",
+      "lastname": "Barman",
+      "email": "abc@gmail.com",
+      "password": "12364"
+    }
+  }
+}
+
+
+// Setting ALIAS "user" to the mutation query
+mutation addUser($v:mutationArgs!)
+{
+  user:signupNewUser(data:$v)
+  {
+    id
+    firstname
+    lastname
+    email
+    password
+  }
+}
+
+output:
+{
+  "data": {
+    "user": {
+      "id": "5f4e980c3e",
+      "firstname": "gopal",
+      "lastname": "Barman",
+      "email": "abc@gmail.com",
+      "password": "12364"
+    }
+  }
+}
