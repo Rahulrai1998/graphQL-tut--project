@@ -2,7 +2,7 @@
 -----------------------------
 query QueryUsers{
   users{
-    id
+    _id
     firstname
     lastname
     email
@@ -30,8 +30,8 @@ query getQueryById($user_id:ID!){
 ------------------------------------
 
 query getUserById{
-  user(id:"23131"){
-    id
+  user(_id:"23131"){
+    _id
     firstname
     lastname
     email
@@ -43,7 +43,7 @@ query getUserById{
 USING QUERY VARIABLES
 
 query getUserById($user_id:ID!){
-  user(id:$user_id)
+  user(_id:$user_id)
   {
     firstname
     lastname
@@ -60,7 +60,7 @@ MUTATION
 mutation addNewUser($firstname:String! , $lastname:String! , $email:String! , $password :String!){
   signupNewUser(firstname:$firstname , lastname:$lastname , email:$email , password:$password)
   {
-    id
+    _id
     firstname
     lastname
     email
@@ -84,7 +84,7 @@ output:
 {
   "data": {
     "signupNewUser": {
-      "id": "ac0fcd5e47",
+      "_id": "ac0fcd5e47",
       "firstname": "gopal",
       "lastname": "Barman",
       "email": "abc@gmail.com",
@@ -99,7 +99,7 @@ mutation addUser($v:mutationArgs!)
 {
   user:signupNewUser(data:$v)
   {
-    id
+    _id
     firstname
     lastname
     email
@@ -111,7 +111,7 @@ output:
 {
   "data": {
     "user": {
-      "id": "5f4e980c3e",
+      "_id": "5f4e980c3e",
       "firstname": "gopal",
       "lastname": "Barman",
       "email": "abc@gmail.com",

@@ -8,7 +8,8 @@ import mongoose from 'mongoose'
 
 // DATABASE CONNECTION 
 // SECOND ARGUMENTS ARE FOR PREVENTING WARNINGS IN CONSOLE
-mongoose.connection(MONGO_URI,{
+
+mongoose.connect(MONGO_URI,{
   useNewUrlParser:true,
   useUnifiedTopology:true
 })
@@ -21,7 +22,10 @@ mongoose.connection.on("error",(e)=>{
   console.log("error connecting",e)
 })
 
+// import models
 
+import './models/Quotes.js'
+import './models/User.js'
 
 //AFTER DATABASE CONNECTION
 import resolvers from "./resolvers.js";

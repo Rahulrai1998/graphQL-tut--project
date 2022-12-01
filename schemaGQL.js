@@ -3,20 +3,20 @@ import { gql } from "apollo-server-core";
 const typeDefs = gql`
   type Query {
     users: [User]
-    user(id: ID!): User
+    user(_id: ID!): User
     quotes: [Quote]
     quote(by: ID!): [Quote]
   }
 
   type User {
-    id: ID
+    _id: ID
     firstname: String
     lastname: String
     email: String
     password: String
     quotes: [Quote]
   }
-
+ 
   type Quote {
     name: String
     by: ID
