@@ -9,26 +9,27 @@ const typeDefs = gql`
   }
 
   type User {
-    _id: ID
-    firstname: String
-    lastname: String
-    email: String
-    password: String
+    _id: ID!
+    firstname: String!
+    lastname: String!
+    email: String!
+    password: String!
     quotes: [Quote]
   }
  
   type Quote {
-    name: String
-    by: ID
+    name: String!
+    by: ID!
   }
 
   type Token{
-    token:String
+    token:String!
   }
         
   type Mutation {
     signupNewUser(data: mutationArgs!): User
     signInUser(signIndata: UserSignInArgs!) : Token
+    createQuote(name:String):String
     
   }
 

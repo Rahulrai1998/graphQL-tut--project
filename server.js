@@ -2,8 +2,8 @@ import { ApolloServer, gql } from "apollo-server";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 
 import typeDefs from "./schemaGQL.js";
-
-import { MONGO_URI } from "./config.js";
+import jwt from 'jsonwebtoken'
+import { JWT_SECRET, MONGO_URI } from "./config.js";
 import mongoose from 'mongoose'
 
 // DATABASE CONNECTION 
@@ -33,6 +33,14 @@ import resolvers from "./resolvers.js";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context:({req})=>{
+    // Following code is called MIDDLEWARE
+    const {authorization} = req.headers
+    if(authorization){
+       const {userId} = jwt.verify(authorization,JWT_SECRET)
+       return {userId} // DECODED TOKEN which gives '_id'
+    }
+  },
   plugins:[
     ApolloServerPluginLandingPageGraphQLPlayground()
   ]
