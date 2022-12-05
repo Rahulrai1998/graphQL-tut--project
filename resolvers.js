@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "./config.js";
 
 
-
+// JUST USING USER MODEL AND NOT REGISTERING 
 const User = mongoose.model("User")
 
 const resolvers = {

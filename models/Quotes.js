@@ -13,4 +13,4 @@ const quoteShema = new mongoose.Schema({
 
 })
 
-mongoose.model("Quotes",quoteShema)
+mongoose.model("Quotes",quoteShema) //REGISTERING QUOTES SCHEMA MODEL
