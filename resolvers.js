@@ -1,5 +1,5 @@
 import { quotes, users } from "./fakedb.js";
-import { randomBytes, sign } from "crypto";
+// import { randomBytes, sign } from "crypto";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
@@ -11,16 +11,14 @@ const Quotes = mongoose.model("Quotes");
 
 const resolvers = {
   Query: {
-    users: () => {
-      return users;
-    },
-    user: (_, args) => users.find((user) => user._id == args._id),
-    quotes: () => quotes,
-    quote: (_, { by }) => quotes.filter((q) => q.by == by),
+    users:async () => await User.find({}),
+    user: async (_,{_id}) => await User.findOne({_id}),//users.find((user) => user._id == args._id),
+    quotes: async () => await Quotes.find({}).populate("by" , "_id firstname"),
+    quote: async(_, { by }) => await Quote.findOne({by}),//quotes.filter((q) => q.by == by)
   },
 
   User: {
-    quotes: (ur) => quotes.filter((quote) => quote.by == ur._id),
+    quotes: async (ur) => await Quotes.find({by:ur._id})//quotes.filter((quote) => quote.by == ur._id),
   },
 
   Mutation: {
@@ -68,7 +66,7 @@ const resolvers = {
     },
 
     // createQuote will be a protected resource , or user must sign in to use it
-    createQuote:async (_, { name }, { userId }) => {
+    createQuote: async (_, { name }, { userId }) => {
       if (!userId) {
         throw new Error("You are not logged in");
       }
@@ -78,8 +76,8 @@ const resolvers = {
         by: userId,
       });
 
-      await newQuote.save()
-      return "Quote saved successfully"
+      await newQuote.save();
+      return "Quote saved successfully";
     },
   },
 };
