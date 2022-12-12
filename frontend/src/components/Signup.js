@@ -1,16 +1,12 @@
 import React, { useState } from "react";
+// import React from "react";
 
-const Login = () => {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-
+const Signup = () => {
   const [formData, setFormData] = useState({});
-
   const handleChange = (e) => {
-    //Used SPREAD OPPERATOR TO COPY THE CURRENT STATE DATA INTO THE NEW ONE
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value, // setting the key of the object
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -18,10 +14,29 @@ const Login = () => {
     e.preventDefault();
     console.log(formData);
   };
+
   return (
     <div className="container myStyles">
       <form onSubmit={(e) => handleSubmit(e)}>
-        <h5>Login</h5>
+        <h5>Signup</h5>
+        <input
+          type="text"
+          placeholder="Firstname"
+          required
+          name="firstname"
+          // value={email}
+          onChange={handleChange}
+          className="inputStyles"
+        />
+        <input
+          type="text"
+          placeholder="Lastname"
+          required
+          name="lastname"
+          // value={email}
+          onChange={handleChange}
+          className="inputStyles"
+        />
         <input
           type="email"
           placeholder="email"
@@ -45,11 +60,11 @@ const Login = () => {
           style={{ margin: "1em" }}
           type="submit"
         >
-          Login
+          Signup
         </button>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
