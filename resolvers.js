@@ -13,7 +13,7 @@ const resolvers = {
   Query: {
     users:async () => await User.find({}),
     user: async (_,{_id}) => await User.findOne({_id}),//users.find((user) => user._id == args._id),
-    quotes: async () => await Quotes.find({}).populate("by" , "_id firstname"),
+    quotes: async () => await Quotes.find({}).sort({_id:-1}).populate("by" , "_id firstname"),
     quote: async(_, { by }) => await Quote.findOne({by}),//quotes.filter((q) => q.by == by)
   },
 

@@ -1,21 +1,21 @@
-import logo from "./logo.svg";
 import "./App.css";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Profile from "./components/Profile";
-import CreateQuote from "./components/CreateQuote";
-import Home from "./components/Home";
+
 import Navbar from "./components/Navbar";
+import { useRoutes } from "react-router-dom";
+import { routes } from "./routes";
 
 function App() {
+  const element = useRoutes(routes);
   return (
     <div className="App">
       <Navbar />
-      <Home />
+      {element}
+
+      {/* <Home />
       <Login />
       <Signup />
       <Profile />
-      <CreateQuote />
+      <CreateQuote /> */}
     </div>
   );
 }
