@@ -1,12 +1,18 @@
 import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 // import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { SIGNUP_USER } from "../graphql/mutations";
 
 const Signup = () => {
   const [formData, setFormData] = useState({});
-  const [signup , {loading , error , data}]=useMutation(SIGNUP_USER)
+
+  const navigate = useNavigate()
+  const [signup , {loading , error , data}]=useMutation(SIGNUP_USER,{
+    onCompleted(data){
+      navigate("/login")
+    }
+  })
   if (loading) return <h1>Loading...</h1>;
   if (error) {
     console.log(error.message);

@@ -3,16 +3,31 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { LOGIN_USER } from "../graphql/mutations";
 
+
+// const clearCacheData = () => {
+//   caches.keys().then((names) => {
+//     names.forEach((name) => {
+//       caches.delete(name);
+//     });
+//   });
+  
+// };
+
 const Login = () => {
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
+  
 
   const [formData, setFormData] = useState({});
   const navigate = useNavigate();
 
   const [loginUser, { loading, error, data }] = useMutation(LOGIN_USER, {
     onCompleted(data) {
+      // localStorage.removeItem("token")
+      // clearCacheData()
+     
       localStorage.setItem("token", data.userToken.token);
+      console.log(data)                       
       navigate("/");
     },
   });

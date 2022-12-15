@@ -2,7 +2,7 @@ import { useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CREATE_QUOTES } from "../graphql/mutations";
-import { GET_ALL_QUOTES } from "../graphql/queries";
+import { GET_ALL_QUOTES, MY_PROFILE } from "../graphql/queries";
 
 export default function CreateQuote() {
   const [quote, setQuote] = useState("");
@@ -14,7 +14,7 @@ export default function CreateQuote() {
       navigate("/");
       console.log(data);
     },
-    refetchQueries: [GET_ALL_QUOTES, "quotes"],
+    refetchQueries: ['getAllQuotes' ,'getMyProfile']
   });
 
   if (loading) {
@@ -38,12 +38,15 @@ export default function CreateQuote() {
     console.log(error.message);
   }
 
+  if(data){
+    
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(quote);
     createQuote({
       variables: {
-        quote,
+        quote
       },
     });
   };

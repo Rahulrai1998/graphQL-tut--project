@@ -11,14 +11,21 @@ const Quotes = mongoose.model("Quotes");
 
 const resolvers = {
   Query: {
-    users:async () => await User.find({}),
-    user: async (_,{_id}) => await User.findOne({_id}),//users.find((user) => user._id == args._id),
-    quotes: async () => await Quotes.find({}).sort({_id:-1}).populate("by" , "_id firstname"),
-    quote: async(_, { by }) => await Quote.findOne({by}),//quotes.filter((q) => q.by == by)
+    users: async () => await User.find({}),
+    user: async (_, { _id }) => await User.findOne({ _id }), //users.find((user) => user._id == args._id),
+    quotes: async () =>
+      await Quotes.find({}).sort({ _id: -1 }).populate("by", "_id firstname"),
+    quote: async (_, { by }) => await Quote.findOne({ by }), //quotes.filter((q) => q.by == by)
+    myProfile: async (_, args, { userId }) => {
+      if (!userId) {
+        throw new Error("You are not logged in");
+      }
+      return await User.findOne({ _id: userId });
+    },
   },
 
   User: {
-    quotes: async (ur) => await Quotes.find({by:ur._id})//quotes.filter((quote) => quote.by == ur._id),
+    quotes: async (ur) => await Quotes.find({ by: ur._id }), //quotes.filter((quote) => quote.by == ur._id),
   },
 
   Mutation: {
@@ -62,7 +69,7 @@ const resolvers = {
 
       const token = jwt.sign({ userId: user._id }, JWT_SECRET);
 
-      return { token };
+      return { token, signIndata };
     },
 
     // createQuote will be a protected resource , or user must sign in to use it
