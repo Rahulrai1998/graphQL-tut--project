@@ -3,7 +3,8 @@ import { quotes, users } from "./fakedb.js";
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { JWT_SECRET } from "./config.js";
+
+
 
 // JUST USING USER MODEL AND NOT REGISTERING
 const User = mongoose.model("User");
@@ -67,7 +68,7 @@ const resolvers = {
         throw new Error("Email or password is invalid");
       }
 
-      const token = jwt.sign({ userId: user._id }, JWT_SECRET);
+      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
 
       return { token, signIndata };
     },

@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { GET_ALL_QUOTES } from "../graphql/queries";
 
 export default function Home() {
@@ -8,8 +9,8 @@ export default function Home() {
   if (error) {
     console.log(error.message);
   }
-  if(data.quotes.length == 0){
-    <h1>No quotes</h1>
+  if (data.quotes.length == 0) {
+    <h1>No quotes</h1>;
   }
   // useEffect(() => {
   //   fetch("http://localhost:4000", {
@@ -48,7 +49,9 @@ export default function Home() {
           <>
             <blockquote className="left-align">
               <h6>{quote.name}</h6>
-              <p className="right-align">~ {quote.by.firstname}</p>
+              <Link to={`/profile/${quote.by._id}`}>
+                <p className="right-align">~ {quote.by.firstname}</p>
+              </Link>
             </blockquote>
           </>
         );
